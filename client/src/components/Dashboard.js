@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import css from '../css/styles.css'
+
 import * as actions from '../actions';
 
+import FileUploader from './FileUploader';
 class Dashboard extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedFile: null
+    }
+  }
+
   async componentDidMount() {
     this.props.getSecret();
   }
@@ -15,19 +24,7 @@ class Dashboard extends Component {
           {/* <br></br>
           Our secret: <h3>{this.props.secret}</h3> */}
         </div>
-
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <form method="post" action="#" id="#">
-                <div class="form-group files">
-                  <label>Upload Your File </label>
-                  <input type="file" class="form-control" multiple=""></input>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        <FileUploader />
       </div>
     );
   }

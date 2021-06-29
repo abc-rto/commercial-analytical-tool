@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/users', require('./routes/users.routes'));
+app.use('/upload', require('./routes/upload.routes'));
 
 module.exports = app;
 
