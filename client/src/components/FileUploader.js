@@ -20,7 +20,8 @@ class FileUploader extends Component {
             // receive two    parameter endpoint url ,form data
         })
             .then(res => { // then print response status
-                console.log(res.statusText)
+                console.log("invincible: " + res.statusText)
+
             })
     }
 

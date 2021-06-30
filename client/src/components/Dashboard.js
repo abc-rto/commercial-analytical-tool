@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import * as actions from '../actions';
 
 import FileUploader from './FileUploader';
+import CheckBoxList from './CheckBoxList';
+import PopUpMenu from './PopUpMenu';
+
 class Dashboard extends Component {
 
   constructor(props) {
@@ -24,7 +27,11 @@ class Dashboard extends Component {
           {/* <br></br>
           Our secret: <h3>{this.props.secret}</h3> */}
         </div>
-        <FileUploader />
+        <FileUploader/>
+        <br></br>
+        <PopUpMenu/>
+        <br></br>
+        <CheckBoxList/>
       </div>
     );
   }

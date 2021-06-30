@@ -95,3 +95,28 @@ export const getSecret = () => {
 
         };
     }
+
+    export const getInverterData = () => {
+        return async dispatch => {
+            try {
+                const res = await axios.get('http://localhost:5001/post/inverters').then(res => res.data);
+                //const dataPromise = res.then((response) => response.data)
+                //console.log(res);
+                //console.log('ID: ', res[0].id, 'Name: ', res[0].name);
+                // res.forEach(element => {
+                //     result.push(element);
+                // });
+                //console.log(res);
+    
+                dispatch({
+                    type: DASHBOARD_GET_DATA,
+                    payload: res
+                })
+    
+                return res;
+    
+            } catch (error) {
+                console.error('error', error);
+            }
+        }
+    }

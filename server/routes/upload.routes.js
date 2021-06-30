@@ -9,6 +9,8 @@ const passportSignIn = passport.authenticate('local', { session: false });
 const passportJWT = passport.authenticate('jwt', { session: false });
 
 router.route('/post').post(passportJWT, uploadController.post);
+router.route('/inverters').get(passportJWT, uploadController.getInverterLabels);
+router.route('/files').get(passportJWT, uploadController.getInverterLabels);
 
 module.exports = router;
 
