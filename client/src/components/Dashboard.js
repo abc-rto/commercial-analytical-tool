@@ -23,10 +23,6 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="component">
-        <div>
-          {/* <br></br>
-          Our secret: <h3>{this.props.secret}</h3> */}
-        </div>
         <FileUploader/>
         <br></br>
         <PopUpMenu/>

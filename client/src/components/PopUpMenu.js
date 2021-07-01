@@ -23,12 +23,12 @@ export default function SimpleSelect() {
 
 
     React.useEffect((items) => {
-        setItems([{ id: 1, name: 'item 1' }, { id: 2, name: 'item 2' }])
+        init()
     },[]);
 
     const init = async () => {
         const res = await axios.get('http://localhost:5001/upload/files').then(res => res.data);
-        return res
+        setItems(res)
     }
 
     const handleChange = (event) => {

@@ -44,6 +44,7 @@ module.exports = {
             return res.status(200).send(req.file)
         })
     },
+    
     getInverterLabels: async (req, res, next) => {
         inverterString = await getInverterPromise() + ""
         inverters = inverterString.split(",")
@@ -53,9 +54,12 @@ module.exports = {
         //console.log("Promise is: " + inverters)
         res.json(inverters)
     },
+    
     getFilesList: async (req, res, next) => {
         files = listDirectory()
-        //console.log("Promise is: " + inverters)
+        files.forEach(function (file, index, files) {
+            files[index] = {id: index, name: file}
+        })
         res.json(files)
     }
 }
