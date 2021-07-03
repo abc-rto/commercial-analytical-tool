@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
+import qs from 'qs'
 
 import * as actions from '../actions';
 
@@ -44,6 +45,18 @@ export default function CheckboxList() {
         setLabels(inverters)
     }
 
+    const fetchDataHandler = () => {
+        console.log(checked)
+        axios.get('http://localhost:5001/upload/fetchData', {
+            params: {
+              storeIds: checked
+            },
+            paramsSerializer: params => {
+              return qs.stringify(params)
+            }
+          })
+    }
+
     return (
         <div class="container">
             <label>Scan File For Inverters</label>
@@ -75,6 +88,7 @@ export default function CheckboxList() {
                     );
                 })}
             </List>
+            <button type="button" class="btn btn-success btn-block" onClick={fetchDataHandler}>Fetch data</button>
         </div>
     );
 }

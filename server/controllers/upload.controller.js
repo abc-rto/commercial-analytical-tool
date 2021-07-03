@@ -18,6 +18,7 @@ var getInverterPromise = () => {
         const pyprog = spawn('python', ['./server/python_scripts/codespace.py']);
 
         pyprog.stdout.on('data', function (data) {
+            //console.log(data.toString())
             success(data);
         });
 
@@ -44,7 +45,7 @@ module.exports = {
             return res.status(200).send(req.file)
         })
     },
-    
+
     getInverterLabels: async (req, res, next) => {
         inverterString = await getInverterPromise() + ""
         inverters = inverterString.split(",")
@@ -54,12 +55,16 @@ module.exports = {
         //console.log("Promise is: " + inverters)
         res.json(inverters)
     },
-    
+
     getFilesList: async (req, res, next) => {
         files = listDirectory()
         files.forEach(function (file, index, files) {
-            files[index] = {id: index, name: file}
+            files[index] = { id: index, name: file }
         })
         res.json(files)
+    },
+
+    fetchData: async (req, res, next) => {
+        console.log(req.query.storeIds)
     }
 }
