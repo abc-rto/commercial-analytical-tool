@@ -12,6 +12,8 @@ import qs from 'qs'
 
 import * as actions from '../actions';
 
+import BarChart from './BarChart'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,6 +28,8 @@ export default function CheckboxList() {
     const classes = useStyles();
     const [checked, setChecked] = React.useState([0]);
     const [labels, setLabels] = React.useState([]);
+    const [datasets, setDatasets] = React.useState([]);
+    const [dataLabels, setDatalabels] = React.useState([]);
 
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
@@ -45,16 +49,20 @@ export default function CheckboxList() {
         setLabels(inverters)
     }
 
-    const fetchDataHandler = () => {
-        console.log(checked)
-        axios.get('http://localhost:5001/upload/fetchData', {
+    const fetchDataHandler = async () => {
+       const dataPoints = await axios.get('http://localhost:5001/upload/fetchData', {
             params: {
-              storeIds: checked
+              inverters: checked
             },
             paramsSerializer: params => {
               return qs.stringify(params)
             }
-          })
+          }).then(res => res.data);
+
+        var data = JSON.parse(dataPoints)
+        console.log(data.xVals)
+        setDatasets(data.datasets)
+        setDatalabels(data.labels)
     }
 
     return (
@@ -89,6 +97,7 @@ export default function CheckboxList() {
                 })}
             </List>
             <button type="button" class="btn btn-success btn-block" onClick={fetchDataHandler}>Fetch data</button>
+            <BarChart labels={dataLabels} datasets={datasets}/>
         </div>
     );
 }

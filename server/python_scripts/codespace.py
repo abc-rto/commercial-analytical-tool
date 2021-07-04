@@ -20,6 +20,8 @@ for column in columns[:]:
 data = pd.read_csv('C:\\Users\\Des Brennan\\sources\\commercial-data-python-dev\\data\\Fford Llanarth CQ 7.csv', usecols=columns, skiprows=[i for i in range(1,17)])
 data['Time']= pd.to_datetime(data['Time'], format="%d.%m. %H:%M")
 
+data.columns = data.columns.str.strip()
+
 # Group data by day and by month
 daily = data.groupby(pd.Grouper(key='Time',freq='D')).sum().reset_index()
 monthly = data.groupby(pd.Grouper(key='Time',freq='M')).sum().reset_index()

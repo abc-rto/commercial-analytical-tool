@@ -13,9 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@reactchartjs/react-chart.js": "^1.0.0-rc.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.6.0",
+    "chart.js": "^2.3.0",
     "concurrently": "^6.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -30,6 +32,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "qs": "^6.10.1",
+    "react-chart.js": "^1.0.0",
     "react-redux": "^7.2.3",
     "redux": "^4.0.5",
     "redux-form": "^8.3.7"

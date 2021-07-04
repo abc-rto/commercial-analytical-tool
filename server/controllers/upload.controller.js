@@ -34,6 +34,24 @@ var listDirectory = () => {
     //console.log(files)
 }
 
+var getDataPromise = (columns) => {
+    return runPy = new Promise(function (success, nosuccess) {
+
+        const { spawn } = require('child_process');
+        const pyprog = spawn('python', ['./server/python_scripts/fetchDataPromise.py', columns]);
+
+        pyprog.stdout.on('data', function (data) {
+            //console.log(data.toString())
+            success(data.toString());
+        });
+
+        pyprog.stderr.on('data', (data) => {
+            //console.error(data.toString())
+            nosuccess(data);
+        });
+    });
+}
+
 module.exports = {
     post: async (req, res, next) => {
         upload(req, res, function (err) {
@@ -65,6 +83,8 @@ module.exports = {
     },
 
     fetchData: async (req, res, next) => {
-        console.log(req.query.storeIds)
+       dataPoints = await getDataPromise(JSON.stringify(req.query.inverters))
+       //console.log(dataPoints)
+       res.json(dataPoints)
     }
 }
