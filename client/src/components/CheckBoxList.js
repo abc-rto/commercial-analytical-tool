@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CheckboxList() {
 
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([0]);
+    var [checked, setChecked] = React.useState([0]);
     const [labels, setLabels] = React.useState([]);
     const [datasets, setDatasets] = React.useState([]);
     const [dataLabels, setDatalabels] = React.useState([]);
@@ -47,6 +47,15 @@ export default function CheckboxList() {
     const onClickHandler = async () => {
         const inverters = await axios.get('http://localhost:5001/upload/inverters').then(res => res.data);
         setLabels(inverters)
+    }
+
+    const selectAll = () => {
+        if(checked.length - 1 < labels.length){
+            var newChecked = [0].concat(labels)
+            setChecked(newChecked)
+        }else if(checked.length - 1 == labels.length){
+            setChecked([0])
+        }
     }
 
     const fetchDataHandler = async () => {
@@ -73,6 +82,8 @@ export default function CheckboxList() {
             <br></br>
             <br></br>
             <label>Select Solar Inverters</label>
+            <br></br>
+            <button type="button" class="btn btn-success btn-block" onClick={selectAll}>Select all</button>
             <List className={classes.root}>
                 {labels.map((value) => {
                     const labelId = `checkbox-list-label-${value}`;
@@ -96,7 +107,7 @@ export default function CheckboxList() {
                     );
                 })}
             </List>
-            <button type="button" class="btn btn-success btn-block" onClick={fetchDataHandler}>Fetch data</button>
+            <button type="button" class="btn btn-success btn-block" onClick={fetchDataHandler}>Preview</button>
             <BarChart labels={dataLabels} datasets={datasets}/>
         </div>
     );

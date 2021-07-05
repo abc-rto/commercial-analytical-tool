@@ -84,7 +84,7 @@ module.exports = {
 
     fetchData: async (req, res, next) => {
        dataPoints = await getDataPromise(JSON.stringify(req.query.inverters))
-       //console.log(dataPoints)
+       console.log(dataPoints)
        res.json(dataPoints)
     }
 }
