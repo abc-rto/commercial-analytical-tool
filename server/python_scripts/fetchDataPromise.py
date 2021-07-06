@@ -10,7 +10,7 @@ columns[:] = map(str.strip, columns)
 data = pd.read_csv('public/Fford Llanarth CQ 7-monthly.csv', usecols=columns)
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 seriesList = data.columns.values.tolist()
-pal = sns.color_palette('BuPu', n_colors=len(columns))
+pal = sns.color_palette('Accent', n_colors=len(columns))
 
 yVals = []
 for i, col in enumerate(data):
