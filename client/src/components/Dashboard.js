@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 
 import * as actions from '../actions';
 
-import FileUploader from './FileUploader';
-import CheckBoxList from './CheckBoxList';
-import PopUpMenu from './PopUpMenu';
+import Accordions from './Accordions'
 
 class Dashboard extends Component {
 
@@ -23,11 +21,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="component">
-        <FileUploader/>
-        <br></br>
-        <PopUpMenu/>
-        <br></br>
-        <CheckBoxList/>
+        <Accordions/>
       </div>
     );
   }
