@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_SIGN_UP, AUTH_SIGN_IN, AUTH_SIGN_OUT, AUTH_ERROR, DASHBOARD_GET_DATA } from './types'
+import { AUTH_SIGN_UP, AUTH_SIGN_IN, AUTH_SIGN_OUT, AUTH_ERROR, DASHBOARD_GET_DATA, NEW_PROJECT } from './types'
 
 /*
 ActionCreators -> create/return Actions ({ }) -> dispatched -> middlewares -> reducers
@@ -120,3 +120,31 @@ export const getSecret = () => {
             }
         }
     }
+
+    
+
+export const newProject = data => {
+    /*
+        Step 1) Use the data and to make HTTP request to our BE abd send it along [x]
+        Step 2) Take BE response (jwtToken is hee now!) [x]
+        Step 3) Dispatch 'user just signed up' (with jwtToken)[x]
+        Step 4) Save the jwtToken into our localStorage[x]
+    */
+
+    return async dispatch => {
+        try {
+            const res = await axios.post('http://localhost:5001/projects/newProject', data);
+            dispatch({
+                type: NEW_PROJECT,
+                payload: res.data.success
+            });
+
+        } catch (error) {
+            dispatch({
+                type: AUTH_ERROR,
+                payload: 'Project already exists'
+            })
+        }
+
+    };
+}
