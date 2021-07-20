@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Container from '@material-ui/core/Container';
 
 import FileUploader from './FileUploader';
 import PopUpMenu from './PopUpMenu';
@@ -115,9 +116,28 @@ export default function CustomizedAccordions() {
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
           <Typography>File Manager</Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          <FileUploader />
-        </AccordionDetails>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <AccordionDetails>
+            <Grid container spacing={3}>
+              <Grid item xs={12} >
+                <Card className={classes.card}>
+                  <CardContent >
+                    <Container maxWidth="sm">
+                      <Typography className={classes.title} color="textSecondary" gutterBottom>
+                        Upload a File
+                      </Typography>
+                      <FileUploader setExpanded={setExpanded}/>
+                    </Container>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </AccordionDetails>
+        </div>
       </Accordion>
       <Accordion square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
@@ -136,7 +156,7 @@ export default function CustomizedAccordions() {
           <Tabs></Tabs>
         </AccordionDetails>
       </Accordion>
-      <Accordion square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+      <Accordion square expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
           <Typography>Reports</Typography>
         </AccordionSummary>

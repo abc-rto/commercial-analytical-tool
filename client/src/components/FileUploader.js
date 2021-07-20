@@ -25,19 +25,24 @@ class FileUploader extends Component {
             })
     }
 
+    nextHandler = () => {
+        this.props.setExpanded('panel3')
+    }
+
     render() {
         return (
             <div className="component">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <form method="post" action="#" id="#">
                                 <div class="form-group files">
-                                    <label>Upload Your File </label>
-                                    <input type="file" class="form-control" name="file" onChange={this.onChangeHandler}></input>
+                                    <input type="file" class="form-control" name={"file"} onChange={this.onChangeHandler}></input>
                                 </div>
                                 <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
                             </form>
+                            <br></br>
+                            <button type="button" class="btn btn-success btn-block" onClick={this.nextHandler}>Next</button>
                         </div>
                     </div>
                 </div>
