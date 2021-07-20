@@ -12,7 +12,7 @@ import axios from 'axios';
 import DataTable from './DataTable'
 import CreateProjectDialog from './CreateProjectDialog';
 
-export default function FormDialog() {
+export default function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
     const [projects, setProjects] = React.useState([]);
 
@@ -38,7 +38,7 @@ export default function FormDialog() {
     return (
         <div>
             <div>
-                <DataTable rows={projects}></DataTable>
+                <DataTable setSelectedProject={props.setSelectedProject} setExpanded={props.setExpanded} init={init} rows={projects}></DataTable>
             </div>
             <div>
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -50,7 +50,7 @@ export default function FormDialog() {
                         <DialogContentText>
                             Fill in project details and submit the form.
                         </DialogContentText>
-                        <CreateProjectDialog handleClose={handleClose}></CreateProjectDialog>
+                        <CreateProjectDialog init={init} handleClose={handleClose}></CreateProjectDialog>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose} color="primary">

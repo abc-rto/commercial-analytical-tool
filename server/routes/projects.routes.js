@@ -5,14 +5,17 @@ const passportConf = require('../passport');
 
 const { validateBody, schemas } = require('../helpers/routeHelpers');
 const projectsController = require('../controllers/projects.controller');
-const passportSignIn = passport.authenticate('local', { session: false });
 const passportJWT = passport.authenticate('jwt', { session: false });
 
-router.route('/newProject').post(projectsController.newProject);
+router.route('/create').post(projectsController.createProject);
+
+router.route('/read').get(passportJWT, projectsController.readProject);
 
 router.route('/selectAll').get(passportJWT, projectsController.listAllProjects);
 
-//router.route('/secret').get(passportJWT, usersController.secret);
+router.route('/update').get(passportJWT, projectsController.updateProject);
+
+router.route('/delete').get(passportJWT, projectsController.deleteProject);
 
 module.exports = router;
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { AUTH_SIGN_UP, AUTH_SIGN_IN, AUTH_SIGN_OUT, AUTH_ERROR, DASHBOARD_GET_DATA, NEW_PROJECT } from './types'
+import qs from 'qs';
+import { AUTH_SIGN_UP, AUTH_SIGN_IN, AUTH_SIGN_OUT, AUTH_ERROR, DASHBOARD_GET_DATA, NEW_PROJECT, DELETE_PROJECT, UPDATE_PROJECT } from './types'
 
 /*
 ActionCreators -> create/return Actions ({ }) -> dispatched -> middlewares -> reducers
@@ -84,46 +85,46 @@ export const getSecret = () => {
     }
 }
 
-    export const signOut = () => {
-        return dispatch => {
-            localStorage.removeItem("JWT_TOKEN");
-            axios.defaults.headers.common['authorize'] = '';
+export const signOut = () => {
+    return dispatch => {
+        localStorage.removeItem("JWT_TOKEN");
+        axios.defaults.headers.common['authorize'] = '';
+        dispatch({
+            type: AUTH_SIGN_OUT,
+            payload: ''
+        });
+
+    };
+}
+
+export const getInverterData = () => {
+    return async dispatch => {
+        try {
+            const res = await axios.get('http://localhost:5001/post/inverters').then(res => res.data);
+            //const dataPromise = res.then((response) => response.data)
+            //console.log(res);
+            //console.log('ID: ', res[0].id, 'Name: ', res[0].name);
+            // res.forEach(element => {
+            //     result.push(element);
+            // });
+            //console.log(res);
+
             dispatch({
-                type: AUTH_SIGN_OUT,
-                payload: ''
-            });
+                type: DASHBOARD_GET_DATA,
+                payload: res
+            })
 
-        };
-    }
+            return res;
 
-    export const getInverterData = () => {
-        return async dispatch => {
-            try {
-                const res = await axios.get('http://localhost:5001/post/inverters').then(res => res.data);
-                //const dataPromise = res.then((response) => response.data)
-                //console.log(res);
-                //console.log('ID: ', res[0].id, 'Name: ', res[0].name);
-                // res.forEach(element => {
-                //     result.push(element);
-                // });
-                //console.log(res);
-    
-                dispatch({
-                    type: DASHBOARD_GET_DATA,
-                    payload: res
-                })
-    
-                return res;
-    
-            } catch (error) {
-                console.error('error', error);
-            }
+        } catch (error) {
+            console.error('error', error);
         }
     }
+}
 
-    
 
-export const newProject = data => {
+
+export const createProject = data => {
     /*
         Step 1) Use the data and to make HTTP request to our BE abd send it along [x]
         Step 2) Take BE response (jwtToken is hee now!) [x]
@@ -133,7 +134,7 @@ export const newProject = data => {
 
     return async dispatch => {
         try {
-            const res = await axios.post('http://localhost:5001/projects/newProject', data);
+            const res = await axios.post('http://localhost:5001/projects/create', data);
             dispatch({
                 type: NEW_PROJECT,
                 payload: res.data.success
@@ -143,6 +144,46 @@ export const newProject = data => {
             dispatch({
                 type: AUTH_ERROR,
                 payload: 'Project already exists'
+            })
+        }
+
+    };
+}
+
+export const editProject = (data) => {
+    console.log(data)
+    return async dispatch => {
+        try {
+            const res = await axios.get('http://localhost:5001/projects/update', {
+                params: {
+                  form: data
+                },
+                paramsSerializer: params => {
+                  return qs.stringify(params)
+                }
+              }).then(res => res.data);
+        } catch (error) {
+            dispatch({
+                type: AUTH_ERROR,
+                payload: 'Error'
+            })
+        }
+
+    };
+}
+
+export const deleteProject = data => {
+    return async dispatch => {
+        try {
+            const res = await axios.get('http://localhost:5001/projects/delete', data);
+            dispatch({
+                type: DELETE_PROJECT,
+                payload: res.data.success
+            });
+        } catch (error) {
+            dispatch({
+                type: AUTH_ERROR,
+                payload: 'Error'
             })
         }
 

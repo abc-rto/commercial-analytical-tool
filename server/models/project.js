@@ -8,7 +8,7 @@ var AutoIncrement = require('mongoose-sequence')(mongoose);
 const projectSchema = new Schema({
     id: {
         type: Number,
-        required: true,
+        required: false,
         unique: true
     },
     name: {

@@ -13,12 +13,15 @@ class CreateProjectDialog extends Component {
     }
 
     async onSubmit(formData) {
-        await this.props.newProject(formData);
+        await this.props.createProject(formData);
+        this.props.init()
+        this.props.handleClose()
         if (!this.props.errorMessage) {
         }
         else {
-            this.props.handleClose()
+           
         }
+        
     }
 
     render() {

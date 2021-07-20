@@ -4,3 +4,5 @@ export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const DASHBOARD_GET_DATA = 'DASHBOARD_GET_DATA';
 export const NEW_PROJECT = 'NEW_PROJECT';
+export const DELETE_PROJECT = 'DELETE_PROJECT';
+export const UPDATE_PROJECT = 'UPDATE_PROJECT';
