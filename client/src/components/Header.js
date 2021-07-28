@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
+import BottomHeader from '../components/BottomHeader'
 
 class Header extends Component {
     constructor(props) {
@@ -16,33 +17,36 @@ class Header extends Component {
 
     render() {
         return (
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ marginBottom: '30px' }}>
-                <Link className="navbar-brand" to="/">
-                        <img src="../abc-menu-logo.svg"  alt=""></img>
-                </Link>
-                <div className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/dashboard">Dashboard</Link>
-                        </li>
-                    </ul>
-
-                    <ul className="nav navbar-nav ms-auto">
-                        {!this.props.isAuth ?
-                            [<li className="nav-item" key="signup">
-                                <Link className="nav-link" to="/signup">Sign up</Link>
-                            </li>,
-                            <li className="nav-item" key="signin">
-                                <Link className="nav-link" to="/signin">Sign in</Link>
-                            </li>] : null}
-
-                        {this.props.isAuth ?
+            <div>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ marginBottom: '30px' }}>
+                    <Link className="navbar-brand" to="/">
+                        <img src="../abc-menu-logo.svg" alt=""></img>
+                    </Link>
+                    <div className="collapse navbar-collapse">
+                        <ul className="nav navbar-nav mr-auto">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/signout" onClick={this.signOut}>Sign out</Link>
-                            </li> : null}
-                    </ul>
-                </div>
-            </nav>
+                                <Link className="nav-link" to="/dashboard">Dashboard</Link>
+                            </li>
+                        </ul>
+
+                        <ul className="nav navbar-nav ms-auto">
+                            {!this.props.isAuth ?
+                                [<li className="nav-item" key="signup">
+                                    <Link className="nav-link" to="/signup">Sign up</Link>
+                                </li>,
+                                <li className="nav-item" key="signin">
+                                    <Link className="nav-link" to="/signin">Sign in</Link>
+                                </li>] : null}
+
+                            {this.props.isAuth ?
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/signout" onClick={this.signOut}>Sign out</Link>
+                                </li> : null}
+                        </ul>
+                    </div>
+                </nav>
+                <BottomHeader></BottomHeader>
+            </div>
         );
     }
 }

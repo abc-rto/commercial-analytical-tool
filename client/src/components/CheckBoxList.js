@@ -10,6 +10,9 @@ import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
 import qs from 'qs'
 
+import { Container, Row, Col } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import * as actions from '../actions';
 
 import BarChart from './BarChart'
@@ -50,23 +53,23 @@ export default function CheckboxList() {
     }
 
     const selectAll = () => {
-        if(checked.length - 1 < labels.length){
+        if (checked.length - 1 < labels.length) {
             var newChecked = [0].concat(labels)
             setChecked(newChecked)
-        }else if(checked.length - 1 == labels.length){
+        } else if (checked.length - 1 == labels.length) {
             setChecked([0])
         }
     }
 
     const fetchDataHandler = async () => {
-       const dataPoints = await axios.get('http://localhost:5001/upload/fetchData', {
+        const dataPoints = await axios.get('http://localhost:5001/upload/fetchData', {
             params: {
-              inverters: checked
+                inverters: checked
             },
             paramsSerializer: params => {
-              return qs.stringify(params)
+                return qs.stringify(params)
             }
-          }).then(res => res.data);
+        }).then(res => res.data);
 
         var data = JSON.parse(dataPoints)
         console.log(data.xVals)
@@ -76,39 +79,50 @@ export default function CheckboxList() {
 
     return (
         <div class="container">
-            <label>Scan File For Inverters</label>
-            <br></br>
-            <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Scan</button>
-            <br></br>
-            <br></br>
-            <label>Select Solar Inverters</label>
-            <br></br>
-            <button type="button" class="btn btn-success btn-block" onClick={selectAll}>Select all</button>
-            <List className={classes.root}>
-                {labels.map((value) => {
-                    const labelId = `checkbox-list-label-${value}`;
-                    return (
-                        <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={value} />
-                            <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="comments">
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                    );
-                })}
-            </List>
+
+            <Container>
+                <Row>
+                    <Col lg={4}>
+                        <label>Scan File For Inverters</label>
+                        <br></br>
+                        <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Scan</button>
+                        <br></br>
+                        <br></br>
+                    </Col>
+                    <Col lg={4}>
+                        <label>Select Solar Inverters</label>
+                        <br></br>
+                        <button type="button" class="btn btn-success btn-block" onClick={selectAll}>Select all</button>
+                        <List className={classes.root}>
+                            {labels.map((value) => {
+                                const labelId = `checkbox-list-label-${value}`;
+                                return (
+                                    <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
+                                        <ListItemIcon>
+                                            <Checkbox
+                                                edge="start"
+                                                checked={checked.indexOf(value) !== -1}
+                                                tabIndex={-1}
+                                                disableRipple
+                                                inputProps={{ 'aria-labelledby': labelId }}
+                                            />
+                                        </ListItemIcon>
+                                        <ListItemText id={labelId} primary={value} />
+                                        <ListItemSecondaryAction>
+                                            <IconButton edge="end" aria-label="comments">
+                                            </IconButton>
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                );
+                            })}
+                        </List>
+                    </Col>
+                </Row>
+            </Container>
+
+
             <button type="button" class="btn btn-success btn-block" onClick={fetchDataHandler}>Preview</button>
-            <BarChart labels={dataLabels} datasets={datasets}/>
+            <BarChart labels={dataLabels} datasets={datasets} />
         </div>
     );
 }
