@@ -10,7 +10,7 @@ export default function BarChart(props) {
       }
       
       const options = {
-        responsive: true,
+        responsive: true, 
         scales: {
           yAxes: [
             {
